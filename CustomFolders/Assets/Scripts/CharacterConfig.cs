@@ -5,10 +5,10 @@ namespace DefaultNamespace
     [CreateAssetMenu]
     public class CharacterConfig : ScriptableObject
     {
-        [SerializeField] private string character;
+        [SerializeField] private string hairMaterial;
         [SerializeField] private string prefabName;
 
-        public string Character => character;
+        public string HairMaterial => hairMaterial;
         public string PrefabName => prefabName;
     }
 }

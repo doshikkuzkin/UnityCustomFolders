@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,15 @@ namespace DefaultNamespace
         [SerializeField] private Button femaleButton;
         [SerializeField] private Button maleButton;
 
+        [SerializeField] private Button blondButton;
+        [SerializeField] private Button darkButton;
+
         [SerializeField] private GameObject hairPanel;
         [SerializeField] private GameObject clothsPanel;
 
         [SerializeField] private Transform root;
         private GameObject obj;
+        private CharacterConfig characterConfig;
 
         [SerializeField] private string[] characters = new string[2];
 
@@ -24,6 +29,9 @@ namespace DefaultNamespace
             
             femaleButton.onClick.AddListener(() => ShowModel(characters[0]));
             maleButton.onClick.AddListener(() => ShowModel(characters[1]));
+            
+            blondButton.onClick.AddListener(() => ChangeHairColor("Blond"));
+            darkButton.onClick.AddListener(() => ChangeHairColor("Dark"));
         }
 
         private void ShowModel(string characterName)
@@ -48,6 +56,20 @@ namespace DefaultNamespace
             }
             
             obj = Instantiate(prefab, root);
+            characterConfig = config;
+        }
+
+        private void ChangeHairColor(string color)
+        {
+            var material = Resources.Load<Material>($"Materials/{characterConfig.HairMaterial}");
+            var directory = Application.streamingAssetsPath;
+            var characterFolder = $"Colors/{characterConfig.PrefabName}";
+            var path = Path.Combine(directory, characterFolder);
+            var file = Path.Combine(path, $"{color}.tga");
+            
+            var texture2D = TGALoader.LoadTGA(file);
+            
+            material.mainTexture = texture2D;
         }
     }
 }
