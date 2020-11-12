@@ -13,6 +13,10 @@ namespace DefaultNamespace
         [SerializeField] private Button blondButton;
         [SerializeField] private Button darkButton;
 
+        [SerializeField] private Button blueButton;
+        [SerializeField] private Button greenButton;
+        [SerializeField] private Button redButton;
+
         [SerializeField] private GameObject hairPanel;
         [SerializeField] private GameObject clothsPanel;
 
@@ -30,8 +34,12 @@ namespace DefaultNamespace
             femaleButton.onClick.AddListener(() => ShowModel(characters[0]));
             maleButton.onClick.AddListener(() => ShowModel(characters[1]));
             
-            blondButton.onClick.AddListener(() => ChangeHairColor("Blond"));
-            darkButton.onClick.AddListener(() => ChangeHairColor("Dark"));
+            blondButton.onClick.AddListener(() => ChangeColor("Blond", "Hair"));
+            darkButton.onClick.AddListener(() => ChangeColor("Dark", "Hair"));
+            
+            blueButton.onClick.AddListener(() => ChangeColor("Blue", "Torso"));
+            redButton.onClick.AddListener(() => ChangeColor("Red", "Torso"));
+            greenButton.onClick.AddListener(() => ChangeColor("Green", "Torso"));
         }
 
         private void ShowModel(string characterName)
@@ -43,6 +51,8 @@ namespace DefaultNamespace
             }
             
             LoadCharacter(characterName);
+            ChangeColor("Blond", "Hair");
+            ChangeColor("Blue", "Torso");
         }
 
         private void LoadCharacter(string characterName)
@@ -59,11 +69,11 @@ namespace DefaultNamespace
             characterConfig = config;
         }
 
-        private void ChangeHairColor(string color)
+        private void ChangeColor(string color, string folder)
         {
-            var material = Resources.Load<Material>($"Materials/{characterConfig.HairMaterial}");
+            var material = Resources.Load<Material>($"Materials/{folder}/{characterConfig.HairMaterial}");
             var directory = Application.streamingAssetsPath;
-            var characterFolder = $"Colors/{characterConfig.PrefabName}";
+            var characterFolder = $"Colors/{characterConfig.PrefabName}/{folder}";
             var path = Path.Combine(directory, characterFolder);
             var file = Path.Combine(path, $"{color}.tga");
             

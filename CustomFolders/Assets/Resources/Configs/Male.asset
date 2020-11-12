@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3e9b7f027d40678535fde1635ac1e0, type: 3}
   m_Name: Male
   m_EditorClassIdentifier: 
-  character: Male
+  hairMaterial: Male
   prefabName: Male
