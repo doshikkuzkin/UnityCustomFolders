@@ -16,9 +16,13 @@ namespace DefaultNamespace
         [SerializeField] private Button blueButton;
         [SerializeField] private Button greenButton;
         [SerializeField] private Button redButton;
+        
+        [SerializeField] private Button blackButton;
+        [SerializeField] private Button brownButton;
 
         [SerializeField] private GameObject hairPanel;
         [SerializeField] private GameObject clothsPanel;
+        [SerializeField] private GameObject legsPanel;
 
         [SerializeField] private Transform root;
         private GameObject obj;
@@ -30,6 +34,7 @@ namespace DefaultNamespace
         {
             hairPanel.SetActive(false);
             clothsPanel.SetActive(false);
+            legsPanel.SetActive(false);
             
             femaleButton.onClick.AddListener(() => ShowModel(characters[0]));
             maleButton.onClick.AddListener(() => ShowModel(characters[1]));
@@ -40,19 +45,24 @@ namespace DefaultNamespace
             blueButton.onClick.AddListener(() => ChangeColor("Blue", "Torso"));
             redButton.onClick.AddListener(() => ChangeColor("Red", "Torso"));
             greenButton.onClick.AddListener(() => ChangeColor("Green", "Torso"));
+            
+            blackButton.onClick.AddListener(() => ChangeColor("Black", "Legs"));
+            brownButton.onClick.AddListener(() => ChangeColor("Brown", "Legs"));
         }
 
         private void ShowModel(string characterName)
         {
-            if (hairPanel.activeSelf == false || clothsPanel.activeSelf == false)
+            if (hairPanel.activeSelf == false || clothsPanel.activeSelf == false || legsPanel.activeSelf == false)
             {
                 hairPanel.SetActive(true);
                 clothsPanel.SetActive(true);
+                legsPanel.SetActive(true);
             }
             
             LoadCharacter(characterName);
             ChangeColor("Blond", "Hair");
             ChangeColor("Blue", "Torso");
+            ChangeColor("Black", "Legs");
         }
 
         private void LoadCharacter(string characterName)
